@@ -1,0 +1,64 @@
+.nav-end li:nth-child(3){
+	color: red;
+}
+.nav-end li:nth-child(3)::before{
+	background: url(../images/fliconh.png) no-repeat center center;
+	background-size: 90% 90%;
+}
+
+/*内容区域 begin*/
+.content{
+	width: 100%;
+	padding: 40px 0 45px;
+	box-sizing: border-box;
+	display: flex;
+}
+.content>.left-box{
+	flex-basis: 25%;
+/*	height: 500px;*/
+	background-color: #ddd;
+	border-right: 1px solid #999;
+	box-sizing: border-box;
+}
+.content>.left-box>li{
+	border-bottom: 1px solid #999;
+	    height: 50px;
+    line-height: 50px;
+   /* text-align: center;*/
+   font-size: 16px;
+   color: #555;
+}
+.content>.left-box>li:first-child{
+	background-color: #fff;
+}
+
+.content>.right-box{
+	flex-basis: 75%;
+	background-color:#fff;
+	padding: 10px 10px 0 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	box-sizing: border-box;
+}
+
+.content>.right-box>li{
+	width: 48%;
+	height: 180px;
+	background-color: #efefef;
+	margin-bottom: 10px;
+}
+.content>.right-box span{
+	margin: 10px 0;
+	display: block;
+}
+
+
+
+.nav-end a:nth-child(3) li{
+	color: red;
+}
+.nav-end a:nth-child(3) li::before{
+	background: url(../images/fliconh.png) no-repeat center center;
+	background-size: 90% 90%;
+}

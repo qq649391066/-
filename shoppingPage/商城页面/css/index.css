@@ -1,0 +1,133 @@
+/*菜单栏 begin*/
+.nav-center li{
+	float: left;
+	width: 25%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px; /*行高等于高度 字体上下居中 */
+	color: #555;
+}
+.nav-center li:hover{
+	color: #f00;
+	cursor: pointer; /*鼠标变成手指的形状*/
+}
+/*菜单栏 end*/
+
+/*推荐 begin*/
+.tuij{
+	width: 100%;
+	/*background-color: #f00;*/
+	/*opacity: .2;*/
+	padding: 10px 0;
+	/*background-color: red;*/
+}
+.tuij .top-tj{
+	width: 100%;
+	height: 40px;
+	border-left: 10px solid #f00;
+	border-bottom: 1px solid #ddd;
+	background-color: #fff;
+	padding-left: 20px;
+	box-sizing: border-box;
+	line-height: 40px;
+	color: #555;
+}
+.tuij .btm-tj{
+	width: 100%;
+}
+.tuij .btm-tj>div{
+	width: 50%;
+	height:333px; 
+	float: left;
+}
+.tuij .btm-lf .lf-top{
+	height: 222px;
+	background: url(../images/tjptimg1.jpg) no-repeat 0 0;
+	background-size:cover;
+}
+.tuij .lf-btm{
+	height: 111px;
+	background: url(../images/tjptimg2.jpg) no-repeat 0 0;
+	background-size:cover;
+	position: relative;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.tuij .btm-lf>div{
+	width: 100%;
+	padding:10px;
+	position: relative;
+	box-sizing: border-box;
+}
+.tuij p:nth-child(1){
+	font-size: 18px;
+}
+.tuij p:nth-child(2){
+	color: #555;
+}
+.tuij p:nth-child(3){
+	color: #f00;
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+}
+.line{
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+/*推荐 end*/
+
+/*商品展示begin*/
+.content .ware{
+	width: 100%;
+	padding: 10px; /*上下左右全是10个像素的内边距*/
+	background-color: #fff;
+	box-sizing: border-box;
+}
+.content .ware li{
+	width: calc(50% - 10px/2);
+
+	float: left;
+	margin-bottom: 10px;
+}
+.content .ware li:nth-child(even){
+	margin-left: 10px;
+}
+.ware li .ware-name{
+	padding: 5px 3px;
+	color: #666;
+	box-sizing: border-box;
+}
+.ware li .price{
+	padding: 5px 3px;
+	box-sizing: border-box;
+}
+li .price span:nth-child(1){
+	color: red;
+}
+li .price span:nth-child(2){
+	color: #fff;
+	display: block;
+	width: 45px;
+	height: 20px;
+	float: right;
+	font-size: 14px;
+	text-align: center;/*字体左右居中*/
+	line-height: 20px;/*行高等于高度 字体上下居中*/
+	background-color: red;
+	border-radius: 5px;
+}
+/*商品展示end*/
+
+/*内容区域 end*/
+
+.nav-end a:nth-child(1) li{
+	color: red;
+}
+
+.nav-end a:nth-child(1) li::before{
+	background: url(../images/hmiconh.png) no-repeat center center;
+	background-size: 90% 90%;
+}

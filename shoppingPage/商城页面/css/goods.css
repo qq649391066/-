@@ -1,0 +1,85 @@
+.nav-end li:nth-child(2){
+	color: red;
+}
+.nav-end li:nth-child(2)::before{
+	background: url(../images/spiconh.png) no-repeat center center;
+	background-size: 90% 90%;
+}
+
+
+/*内容区域 begin*/
+.content{
+	width: 100%;
+	padding: 40px 0 45px;
+	box-sizing: border-box;
+}
+
+/*菜单栏 begin*/
+.nav-center{
+	background-color: #fff;
+}
+.nav-center li{
+	float: left;
+	width: 25%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px; /*行高等于高度 字体上下居中 */
+	color: #555;
+}
+.nav-center li:hover{
+	color: #f00;
+	cursor: pointer; /*鼠标变成手指的形状*/
+}
+/*菜单栏 end*/
+
+/*商品展示begin*/
+.content .ware{
+	width: 100%;
+	padding: 10px; /*上下左右全是10个像素的内边距*/
+	background-color: #fff;
+	box-sizing: border-box;
+}
+.content .ware li{
+	width: calc(50% - 10px/2);
+
+	float: left;
+	margin-bottom: 10px;
+}
+.content .ware li:nth-child(even){
+	margin-left: 10px;
+}
+.ware li .ware-name{
+	padding: 5px 3px;
+	color: #666;
+	box-sizing: border-box;
+}
+.ware li .price{
+	padding: 5px 3px;
+	box-sizing: border-box;
+}
+li .price span:nth-child(1){
+	color: red;
+}
+li .price span:nth-child(2){
+	color: #fff;
+	display: block;
+	width: 45px;
+	height: 20px;
+	float: right;
+	font-size: 14px;
+	text-align: center;/*字体左右居中*/
+	line-height: 20px;/*行高等于高度 字体上下居中*/
+	background-color: red;
+	border-radius: 5px;
+}
+/*商品展示end*/
+
+
+.nav-end a:nth-child(2) li{
+	color: red;
+}
+
+.nav-end a:nth-child(2) li::before{
+	background: url(../images/spiconh.png) no-repeat center center;
+	background-size: 90% 90%;
+}

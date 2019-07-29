@@ -1,0 +1,58 @@
+/*底部导航栏 begin*/
+.nav-end{
+	position: fixed;/*固定定位*/
+	max-width: 640px;/*最大宽度值*/
+	left: 0;
+	right: 0;
+	bottom:0;
+	margin: auto;
+	border-top: 1px solid #ddd;
+	box-sizing: border-box;
+	z-index: 999;
+	background-color: #fff;
+}
+.nav-end li{
+	float: left;
+    width: 20%;
+    height: 45px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 25px;
+    font-size: 14px;
+   
+    position: relative; /*相对定位*/
+}
+.nav-end li>a{
+	color: #555;
+}
+.nav-end li::before{
+	/*所有li::before的共同样式;*/
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    margin: auto;
+    background-color: #000;
+}
+
+
+.nav-end a:nth-child(1) li::before{
+	background: url(../images/hmicon.png) no-repeat center center;
+	background-size: 90% 90%;
+}.nav-end a:nth-child(2) li::before{
+	background: url(../images/spicon.png) no-repeat center center;
+	background-size: 90% 90%;
+}.nav-end a:nth-child(3) li::before{
+	background: url(../images/flicon.png) no-repeat center center;
+	background-size: 90% 90%;
+}.nav-end a:nth-child(4) li::before{
+	background: url(../images/gwcicon.png) no-repeat center center;
+	background-size: 90% 90%;
+}.nav-end a:nth-child(5) li::before{
+	background: url(../images/wdicon.png) no-repeat center center;
+	background-size: 90% 90%;
+}
+/*底部导航栏 end*/

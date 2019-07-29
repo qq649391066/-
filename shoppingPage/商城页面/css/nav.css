@@ -1,0 +1,43 @@
+.nav-center{
+	background-color: #fff;
+}
+.nav-top{
+	height: 40px;
+	background-color: #f00;
+	padding-top: calc((40px - 25px)/2);
+	box-sizing: border-box;/*把内边距，或者边框的宽度值，计算到宽高里面*/
+	/*position: relative;*//*给父级盒子 加了相对定位*/
+	position: fixed;/*固定定位*/
+	max-width: 640px;/*最大宽度值*/
+	left: 0;
+	right: 0;
+	top: 0;
+	margin: auto;
+	z-index: 999;
+}
+.nav-top::before{
+	    content: '';
+    /* display: block; */
+    background: url(../images/searchicon.png) no-repeat center center;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    /*background-color: #000;*/
+    position: absolute;
+    /* left: 0; */
+    right: 17%;
+    top: 1px;
+    bottom: 0;
+    margin: auto;
+}
+.ipt{
+	width: 70%;
+	height: 25px;
+	display: block;/*转成块级元素*/
+	margin: 0 auto;/*只能块级元素左右居中*/
+	border-radius: calc(25px / 2);/*设置圆角，数值是高度的一半*/
+	padding: 0 15px;
+	box-sizing: border-box;/*把内边距，或者边框的宽度值，计算到宽高里面*/
+	background-color: #d21019;
+	color: #fff;
+}
