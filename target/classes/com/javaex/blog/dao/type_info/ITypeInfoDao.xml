@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.javaex.blog.dao.type_info.ITypeInfoDao">
+    <!-- 建立sql查询结果字段与实体属性的映射关系 -->
+    <resultMap id="TypeInfoMap" type="com.javaex.blog.view.TypeInfo">
+      <result column="typeId" property="typeId"/>
+      <result column="typeName" property="typeName"/>
+      <result column="typeSort" property="typeSort"/>        
+    </resultMap>
+   
+   <!-- 查询所有的文章分类 -->
+   <select id="list" resultMap="TypeInfoMap">
+       SELECT 
+             * 
+       FROM 
+           type_info 
+       ORDER By
+           typeSort
+      
+   </select>
+   
+   <!-- 查询所有的文章分类 -->
+   <select id="selectById" resultMap="TypeInfoMap">
+       SELECT 
+             * 
+       FROM 
+           type_info 
+       WHERE 
+           typeId = #{typeId}
+      
+   </select>
+   
+   <!-- 插入一条新的数据 -->
+   <insert id="insert">
+          INSERT INTO type_info
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="typeSort!=null and typeSort!=''">typeSort,</if>
+                <if test="typeName!=null and typeName!=''">typeName,</if>            
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="typeSort!=null">#{typeSort},</if>
+                <if test="typeName!=null">#{typeName}</if>
+          </trim>
+   </insert>
+   
+   <!-- 更新一条数据 -->
+     <update id="update">
+       UPDATE type_info
+       <set>
+                <if test="typeSort!=null and typeSort!=''">typeSort=#{typeSort},</if>
+                <if test="typeName!=null and typeName!=''">typeName=#{typeName}</if>  
+       </set>  
+       WHERE  typeId = #{typeId} 
+   </update>
+   
+  
+  <!-- 批量删除 -->
+   <delete id="delete">
+         DELETE FROM type_info WHERE typeId IN
+         <foreach collection="idArr" index="index" item="item" open="(" separator="," close=")">
+               #{item}
+         </foreach>  
+   </delete>
+  
+   
+ </mapper>
+

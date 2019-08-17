@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    
+     <!-- 将控制器所在包 加入IOC容器 -->
+     <!-- 开启组件扫描 -->
+     <context:component-scan base-package="com.javaex.blog"></context:component-scan>
+   
+    <!-- SpringMVC基础配置、标配 -->
+    <!-- 启用注解驱动 -->
+       <mvc:annotation-driven></mvc:annotation-driven>
+    
+    <!-- 处理静态资源 -->
+  <!--  <mvc:default-servlet-handler/>  -->
+    
+    
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <property name="prefix" value="/WEB-INF/page/"></property>
+       <property name="suffix" value=".jsp"></property>
+    </bean> 
+    
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+    <!-- 多个拦截器，数序执行 -->
+    <!-- 登录认证拦截器 -->
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <bean class="com.javaex.blog.interceptor.Interceptor"></bean>
+    </mvc:interceptor>
+    </mvc:interceptors>  
+    
+    <!-- 全局异常处理器：只要你实现了HandlerExceptionResolver接口，这个类就是一个全局异常处理器 -->  
+    <bean class="com.javaex.blog.exception.customExceptionResolver"></bean>
+    
+    <!-- 文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+     <!-- 设置默认编码 -->
+     <property name="defaultEncoding" value="uft-8"></property>
+     <!-- 上传文件总的大小最大为5M -->
+     <property name="maxUploadSize" value="5242440"></property>
+    </bean>
+    
+</beans>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+  
+   
+  
+  
+   <!-- 加载db.properties文件 -->
+   <bean  id="config" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:db.properties</value>
+			</array>		
+		</property>		
+	</bean>
+  
+  <!-- 数据源、mapper.xml -->
+  <!-- 配置数据库信息（代替mybatis的配置文件conf.xml） -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="${driverName}"></property>
+    <property name="url" value="${jdbcUrl}"></property>
+    <property name="username" value="${userName}"></property>
+    <property name="password" value="${passWord}"></property>  
+  </bean>
+  
+  <!-- 在SpringIoc容器中创建Mybatis的核心类SqlSessionFactory -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+   <property name="dataSource" ref="dataSource"></property>
+   <property name="mapperLocations" value="classpath:com/javaex/blog/dao/*.xml"></property>  
+   <!-- 分页插件pageHelper -->
+   <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+  </bean>
+  
+  <!-- 第三种方式生存mapper对象(批量产生多个mapper)
+	  批量产生Mapper对在SpringIoc中的id值默认就是首字母小写接口名(首字母小写接口名=id值)
+	  -->
+	<bean id="mappers" class="org.mybatis.spring.mapper.MapperScannerConfigurer">	   
+	   <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	   <!-- 指定批量产生哪个包的mapper对象 -->
+	   <property name="basePackage" value="com.javaex.blog.dao"></property>
+	   <!-- 上面basePackage所在的property的作用：
+	   将com.mapper包中，所有的接口 产生与之对应的动态代理对象
+	   （对象名就是首字母小写的接口名）: studentMapper.方法-->
+	</bean>
+	
+	<!-- 开启事务注解驱动 -->
+	<tx:annotation-driven/>
+	<!-- （事务管理） -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	 <property name="dataSource" ref="dataSource"></property>	
+	</bean>
+</beans>

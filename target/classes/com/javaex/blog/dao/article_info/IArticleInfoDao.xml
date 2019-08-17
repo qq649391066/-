@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.javaex.blog.dao.article_info.IArticleInfoDao">
+    <!-- 建立sql查询结果字段与实体属性的映射关系 -->    
+    <!-- <result column="数据库字段名" property="实体类属性" /> -->
+    <resultMap id="ArticleInfoMap" type="com.javaex.blog.view.ArticleInfo">
+      <result column="articleId" property="articleId"/>
+      <result column="title" property="title"/>
+      <result column="content" property="content"/>   
+      <result column="content_text" property="contentText"/>
+      <result column="cover" property="cover"/>  
+      <result column="view_count" property="viewCount"/> 
+      <result column="update_time" property="updateTime"/>
+      <result column="status" property="status"/> 
+      <result column="typeId" property="typeId"/> 
+         
+      <result column="typeName" property="typeName"/> 
+    </resultMap>
+   
+   <!-- 查询所有的文章 -->
+   <select id="list" resultMap="ArticleInfoMap">
+       SELECT
+			ai.articleId,
+			ai.typeId,
+			ti.typeName,
+			ai.title,
+			ai.cover,
+			ai.content_text,
+			ai.update_time,
+			ai.view_count
+       FROM
+			article_info   ai,
+			type_info   ti
+       WHERE
+			ai.typeId = ti.typeId
+			<if test="status != null and status !=''"> AND ai.status=#{status}</if>
+			<if test="typeId != null and typeId !=''"> AND ai.typeId=#{typeId}</if>
+			<if test="startDate != null and startDate !=''"> 
+			AND ai.update_time BETWEEN #{startDate} AND #{endDate}
+			</if>
+			<if test="keyWord != null and keyWord !=''"> AND ai.title LIKE #{keyWord}</if>
+      ORDER BY
+	        ai.update_time DESC    
+   </select>
+   
+   <!-- 根据文章id查询文章 -->
+   <select id="selectById" resultMap="ArticleInfoMap">
+        SELECT
+			ai.articleId,
+			ai.typeId,
+			ti.typeName,
+			ai.title,
+			ai.cover,
+			ai.content,
+			ai.content_text,
+			ai.update_time,
+			ai.view_count
+       FROM
+			article_info   ai,
+			type_info   ti
+       WHERE
+			ai.typeId = ti.typeId
+	   AND ai.articleId = #{articleId}
+   </select>
+   
+   
+   
+    <!-- 根据文章分类，查询文章的数量 -->
+   <select id="countByTypeIdArr" resultType="int">
+        SELECT 
+            COUNT(*) 
+       FROM 
+           article_info   
+       WHERE 
+           status = #{status}
+       AND    typeId IN 
+       <foreach collection="typeIdArr" index="index" item="item" open="(" separator="," close=")">
+               #{item}
+         </foreach>        
+   </select>
+   
+   <!-- 新增一篇文章 -->
+   <insert id="insert">
+          INSERT INTO article_info
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="title!=null and title!=''">title,</if>
+                <if test="content!=null and content!=''">content,</if>
+                <if test="contentText and contentText!=''">content_text,</if>
+                <if test="cover!=null and cover!=''">cover,</if>
+                <if test="viewCount!=null and viewCount!=''">view_count,</if>
+                <if test="updateTime!=null and updateTime!=''">update_time,</if>
+                <if test="status!=null and status!=''">status,</if>
+                <if test="typeId!=null and typeId!=''">typeId,</if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="title!=null and title!=''">#{title},</if>
+                <if test="content!=null and content!=''">#{content},</if>
+                <if test="contentText!=null and contentText!=''">#{contentText},</if>
+                <if test="cover!=null and cover!=''">#{cover},</if>
+                <if test="viewCount!=null and viewCount!=''">#{viewCount},</if>
+                <if test="updateTime!=null and updateTime!=''">#{updateTime},</if>
+                <if test="status!=null and status!=''">#{status},</if>
+                <if test="typeId!=null and typeId!=''">#{typeId},</if>
+          </trim>
+   </insert>
+   <!-- 更新文章-->
+   <update id="update">
+       UPDATE article_info
+       <set>
+                <if test="title != null and title!=''">title=#{title},</if>
+                <if test="content != null and content!=''">content=#{content},</if>
+                <if test="contentText !=null and contentText!=''">content_text=#{contentText},</if>
+                <if test="cover != null and cover!=''">cover=#{cover},</if> 
+                <if test="viewCount !=null and viewCount!=''">view_count=#{viewCount},</if>
+                <if test="updateTime !=null and updateTime!=''">update_time=#{updateTime},</if>
+                <if test="status !=null and status!=''">status=#{status},</if>
+                <if test="typeId !=null and typeId!=''">typeId=#{typeId},</if>    
+       </set>  
+       WHERE articleId=#{articleId} 
+   </update>
+   
+   <!-- 批量改变文章的类型 -->
+   <update id="batchUpdate">
+       UPDATE article_info
+       <set>             
+                <if test="typeId !=null and typeId!=''">typeId=#{typeId},</if>  
+                 <if test="status !=null and status!=''">status=#{status},</if>  
+                  
+       </set>  
+       WHERE articleId IN
+       <foreach collection="idArr" index="index" item="item" open="(" separator="," close=")">
+               #{item}
+         </foreach>        
+   </update> 
+   
+    <!-- 更新浏览人数 -->
+    <update id="updateViewCount">
+      UPDATE article_info 
+      <set>
+          <if test="viewCount !=null and viewCount!=''">view_count=#{viewCount},</if>
+      </set>
+      WHERE articleId = #{articleId}
+    </update>
+   
+   <!-- 批量彻底删除文章 -->
+   <delete id="batchDelete">
+       DELETE FROM article_info 
+       WHERE articleId IN
+       <foreach collection="idArr" index="index" item="item" open="(" separator="," close=")">
+               #{item}
+         </foreach>        
+   </delete>  
+ </mapper>
+
